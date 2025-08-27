@@ -1,1 +1,213 @@
-removendo conteúdo do index.html
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Nutricionista Mariana Oliveira</title>
+  <style>
+    /* Reset básico */
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: 'Arial', sans-serif;
+      line-height: 1.6;
+      scroll-behavior: smooth;
+    }
+
+    /* Menu */
+    header {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      background: rgba(46, 204, 113, 0.95);
+      padding: 15px 30px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      z-index: 1000;
+    }
+
+    header h1 {
+      color: white;
+      font-size: 1.2rem;
+    }
+
+    nav {
+      display: flex;
+      gap: 20px;
+    }
+
+    nav a {
+      color: white;
+      text-decoration: none;
+      font-weight: bold;
+      transition: color 0.3s;
+    }
+
+    nav a:hover {
+      color: #f1c40f;
+    }
+
+    /* Menu hambúrguer */
+    .menu-toggle {
+      display: none;
+      flex-direction: column;
+      cursor: pointer;
+    }
+
+    .menu-toggle div {
+      width: 25px;
+      height: 3px;
+      background: white;
+      margin: 4px 0;
+      transition: all 0.3s;
+    }
+
+    /* Seções */
+    section {
+      min-height: 100vh;
+      padding: 100px 20px;
+      text-align: center;
+      color: white;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+    }
+
+    #home {
+      background: url("https://images.unsplash.com/photo-1600891965050-dc1d1eaa3c6d") no-repeat center center/cover;
+    }
+
+    #sobre {
+      background: url("https://images.unsplash.com/photo-1543353071-873f17a7a088") no-repeat center center/cover;
+    }
+
+    #servicos {
+      background: url("https://images.unsplash.com/photo-1549576490-b0b4831ef60a") no-repeat center center/cover;
+    }
+
+    #contato {
+      background: url("https://images.unsplash.com/photo-1606761568499-6dfacbc86e01") no-repeat center center/cover;
+    }
+
+    /* Conteúdo */
+    section h2 {
+      font-size: 2rem;
+      margin-bottom: 20px;
+      text-shadow: 2px 2px 5px rgba(0,0,0,0.6);
+    }
+
+    section p {
+      max-width: 700px;
+      margin-bottom: 15px;
+      text-shadow: 1px 1px 3px rgba(0,0,0,0.7);
+    }
+
+    /* Botão */
+    .botao {
+      display: inline-block;
+      margin-top: 20px;
+      padding: 12px 25px;
+      background: #27ae60;
+      color: white;
+      border-radius: 25px;
+      text-decoration: none;
+      font-weight: bold;
+      transition: background 0.3s, transform 0.3s;
+    }
+
+    .botao:hover {
+      background: #219150;
+      transform: scale(1.05);
+    }
+
+    /* Responsividade */
+    @media (max-width: 768px) {
+      nav {
+        position: absolute;
+        top: 60px;
+        right: 0;
+        background: rgba(46, 204, 113, 0.95);
+        flex-direction: column;
+        width: 200px;
+        display: none;
+        padding: 20px;
+        border-radius: 0 0 0 10px;
+      }
+
+      nav.active {
+        display: flex;
+      }
+
+      .menu-toggle {
+        display: flex;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Cabeçalho -->
+  <header>
+    <h1>Mariana Oliveira</h1>
+    <div class="menu-toggle" id="menu-toggle">
+      <div></div>
+      <div></div>
+      <div></div>
+    </div>
+    <nav id="nav">
+      <a href="#home">Início</a>
+      <a href="#sobre">Sobre</a>
+      <a href="#servicos">Serviços</a>
+      <a href="#contato">Contato</a>
+    </nav>
+  </header>
+
+  <!-- Seções -->
+  <section id="home">
+    <h2>Bem-vindo(a)!</h2>
+    <p>Transformando vidas com saúde e nutrição.</p>
+    <a href="#contato" class="botao">Agende sua consulta</a>
+  </section>
+
+  <section id="sobre">
+    <h2>Sobre mim</h2>
+    <p>Sou Mariana Oliveira, nutricionista dedicada em ajudar pessoas a conquistarem equilíbrio alimentar. 
+       Trabalho com consultas presenciais e online, focando em saúde e bem-estar.</p>
+  </section>
+
+  <section id="servicos">
+    <h2>Serviços</h2>
+    <p>✔ Consultas nutricionais personalizadas</p>
+    <p>✔ Planos alimentares adaptados</p>
+    <p>✔ Educação alimentar</p>
+    <p>✔ Acompanhamento online</p>
+  </section>
+
+  <section id="contato">
+    <h2>Contato</h2>
+    <p>📍 Av. Principal, 123 - Tucuruí - PA</p>
+    <p>📞 (94) 99999-9999</p>
+    <p>📧 contato@marianaoliveira.com</p>
+    <a href="https://wa.me/5594999999999" target="_blank" class="botao">Fale no WhatsApp</a>
+  </section>
+
+  <!-- JavaScript -->
+  <script>
+    const menuToggle = document.getElementById('menu-toggle');
+    const nav = document.getElementById('nav');
+
+    menuToggle.addEventListener('click', () => {
+      nav.classList.toggle('active');
+      menuToggle.classList.toggle('open');
+    });
+  </script>
+
+</body>
+</html>
