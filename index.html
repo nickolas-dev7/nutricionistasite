@@ -1,0 +1,514 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <title>Nutricionista Mariana Oliveira</title>
+  <style>
+    :root{
+      --brand:#2ecc71;
+      --brand-2:#27ae60;
+      --accent:#f1c40f;
+      --text:#20362b;
+      --muted:#5a6b60;
+      --bg:#f7fbf8;
+      --card:#ffffff;
+      --shadow:0 10px 30px rgba(0,0,0,.08);
+      --radius:18px;
+    }
+
+    /* Reset */
+    * { box-sizing: border-box; }
+    html,body { margin:0; padding:0; font-family: Arial, Helvetica, sans-serif; color:var(--text); background:var(--bg); }
+
+    a { color:inherit; text-decoration:none; }
+    img { max-width:100%; display:block; }
+
+    /* Util */
+    .container{ max-width:1100px; margin:0 auto; padding:0 16px; }
+    .section{ padding:70px 0; }
+    .title{ font-size:36px; line-height:1.2; margin:0 0 14px; }
+    .subtitle{ color:var(--muted); margin:0 0 30px; }
+    .grid{ display:flex; gap:24px; flex-wrap:wrap; }
+    .card{
+      background:var(--card); border-radius:var(--radius); box-shadow:var(--shadow); padding:24px;
+    }
+    .pill{ display:inline-block; padding:8px 14px; border-radius:999px; background:#eaf8f0; color:#257d52; font-weight:bold; font-size:13px; }
+
+    /* Topbar (não fixa) */
+    .topbar{
+      background:#ffffff;
+      border-bottom:1px solid #e7eee9;
+    }
+    .topbar .inner{ display:flex; align-items:center; justify-content:space-between; padding:14px 0; }
+    .logo{ display:flex; align-items:center; gap:10px; font-weight:bold; }
+    .logo .dot{ width:12px; height:12px; border-radius:50%; background:var(--brand); display:inline-block; }
+    .nav{ display:flex; gap:22px; }
+    .nav a{ padding:8px 4px; border-bottom:2px solid transparent; }
+    .nav a.active{ border-color:var(--brand); }
+
+    /* HERO */
+    .hero{
+      position:relative; min-height:86vh; display:flex; align-items:center;
+      background: url('https://images.unsplash.com/photo-1512621776951-a57141f2eefd?q=80&w=1600&auto=format&fit=crop') center/cover no-repeat;
+    }
+    .hero::before{
+      content:""; position:absolute; inset:0; background:linear-gradient(120deg, rgba(0,0,0,.55), rgba(0,0,0,.35));
+    }
+    .hero .content{ position:relative; color:#fff; }
+    .hero h1{ font-size:46px; margin:0 0 10px; text-shadow:0 6px 30px rgba(0,0,0,.35); }
+    .hero p{ font-size:18px; max-width:720px; color:#f2fff6; }
+    .cta-row{ margin-top:28px; display:flex; gap:14px; flex-wrap:wrap; }
+    .btn{
+      display:inline-block; padding:12px 22px; border-radius:999px; font-weight:bold; cursor:pointer;
+      background:var(--brand); color:#fff; box-shadow:0 8px 18px rgba(46,204,113,.25); transition:.25s;
+    }
+    .btn:hover{ transform:translateY(-2px); background:var(--brand-2); }
+    .btn-outline{ background:transparent; color:#fff; border:2px solid #fff; box-shadow:none; }
+    .btn-outline:hover{ background:#ffffff; color:#1f3a2e; }
+
+    /* SOBRE */
+    .about .col{ flex:1 1 320px; }
+    .about .photo{
+      border-radius:var(--radius); overflow:hidden; box-shadow:var(--shadow);
+    }
+    .about ul{ list-style:none; padding:0; margin:18px 0 0; }
+    .about li{ margin:10px 0; display:flex; align-items:flex-start; gap:10px; }
+    .check{ width:20px; height:20px; border-radius:50%; background:#eaf8f0; color:#257d52; display:inline-flex; align-items:center; justify-content:center; font-size:14px; flex:0 0 20px; }
+
+    /* ABORDAGEM (4 pilares) */
+    .pillars .item{ flex:1 1 230px; }
+    .icon{
+      width:44px; height:44px; border-radius:12px; background:#eaf8f0; color:#257d52;
+      display:flex; align-items:center; justify-content:center; font-weight:bold; margin-bottom:10px;
+    }
+
+    /* SERVIÇOS */
+    .services .item{ flex:1 1 260px; }
+    .services .item h3{ margin:4px 0 8px; }
+    .bullet{ color:var(--muted); font-size:15px; margin:6px 0; }
+
+    /* DEPOIMENTOS - carrossel simples */
+    .testimonials{ position:relative; overflow:hidden; }
+    .carousel{ display:flex; transition:transform .5s ease; }
+    .testimonial{ flex:0 0 100%; padding:10px; }
+    .testimonial .bubble{
+      background:#ffffff; border-radius:20px; box-shadow:var(--shadow); padding:24px;
+    }
+    .t-meta{ margin-top:14px; color:var(--muted); font-size:14px; }
+    .t-controls{
+      margin-top:16px; display:flex; gap:10px; justify-content:center;
+    }
+    .dotc{ width:10px; height:10px; border-radius:999px; background:#cfe8da; }
+    .dotc.active{ background:var(--brand); }
+
+    /* PLANOS */
+    .pricing .item{ flex:1 1 260px; border:1px solid #e5efe8; }
+    .price{ font-size:34px; font-weight:bold; margin:6px 0 12px; color:#184d36; }
+    .period{ color:var(--muted); font-size:13px; }
+    .line{ height:1px; background:#eef5f0; margin:14px 0; }
+
+    /* FAQ */
+    .faq .qa{ border:1px solid #e5efe8; border-radius:14px; background:#fff; margin-bottom:10px; overflow:hidden; }
+    .faq button{
+      width:100%; text-align:left; padding:16px 18px; background:#fff; border:0; font-weight:bold; cursor:pointer;
+    }
+    .faq .ans{ max-height:0; overflow:hidden; transition:max-height .35s ease; padding:0 18px; color:var(--muted); }
+    .faq .qa.open .ans{ max-height:220px; padding-bottom:16px; }
+
+    /* BLOG */
+    .blog .post{ flex:1 1 320px; overflow:hidden; }
+    .post .thumb{ border-radius:16px; overflow:hidden; box-shadow:var(--shadow); }
+    .post h3{ margin:12px 0 6px; }
+
+    /* CONTATO */
+    .contact .wrapper{ display:flex; gap:24px; flex-wrap:wrap; }
+    .contact .card{ flex:1 1 380px; }
+    .form input, .form textarea{
+      width:100%; padding:12px 14px; margin:8px 0 14px; border-radius:12px; border:1px solid #dfeae3; outline:none;
+    }
+    .toast{
+      position:fixed; right:18px; bottom:18px; background:#1a4e38; color:#fff; padding:12px 16px;
+      border-radius:12px; box-shadow:var(--shadow); opacity:0; transform:translateY(10px);
+      transition:.25s;
+    }
+    .toast.show{ opacity:1; transform:translateY(0); }
+
+    /* Footer + voltar ao topo */
+    footer{ background:#0f2e22; color:#cfe0d8; padding:26px 0; }
+    .top-btn{
+      position:fixed; bottom:24px; left:24px; background:#ffffff; border:1px solid #e5efe8;
+      border-radius:999px; padding:10px 14px; box-shadow:var(--shadow); cursor:pointer; display:none;
+    }
+
+    /* Revelar ao rolar */
+    .reveal{ opacity:0; transform:translateY(18px); transition: .5s ease; }
+    .reveal.visible{ opacity:1; transform:none; }
+  </style>
+</head>
+<body>
+
+  <!-- Topbar -->
+  <div class="topbar">
+    <div class="container inner">
+      <div class="logo">
+        <span class="dot"></span>
+        <span>Mariana Oliveira — Nutricionista</span>
+      </div>
+      <nav class="nav" id="nav">
+        <a href="#inicio">Início</a>
+        <a href="#sobre">Sobre</a>
+        <a href="#abordagem">Abordagem</a>
+        <a href="#servicos">Serviços</a>
+        <a href="#depoimentos">Depoimentos</a>
+        <a href="#planos">Planos</a>
+        <a href="#faq">FAQ</a>
+        <a href="#blog">Blog</a>
+        <a href="#contato">Contato</a>
+      </nav>
+    </div>
+  </div>
+
+  <!-- HERO -->
+  <header class="hero" id="inicio">
+    <div class="container content">
+      <span class="pill reveal">Saúde baseada em evidências</span>
+      <h1 class="reveal" style="transition-delay:.06s">Nutrição para sua melhor versão</h1>
+      <p class="reveal" style="transition-delay:.12s">
+        Acompanhamento humanizado, planos alimentares realistas e resultados sustentáveis.
+        Atendimento presencial em Tucuruí-PA e online para todo o Brasil.
+      </p>
+      <div class="cta-row reveal" style="transition-delay:.18s">
+        <a href="https://wa.me/5594999999999" class="btn" target="_blank">Agendar pelo WhatsApp</a>
+        <a href="#servicos" class="btn btn-outline">Ver serviços</a>
+      </div>
+    </div>
+  </header>
+
+  <!-- SOBRE -->
+  <section class="section about" id="sobre">
+    <div class="container">
+      <div class="grid">
+        <div class="col reveal">
+          <div class="photo">
+            <img src="https://images.unsplash.com/photo-1543353071-873f17a7a088?q=80&w=1200&auto=format&fit=crop" alt="Nutricionista atendendo paciente" />
+          </div>
+        </div>
+        <div class="col reveal" style="transition-delay:.1s">
+          <span class="pill">Sobre Mariana</span>
+          <h2 class="title">Nutrição com empatia e ciência</h2>
+          <p class="subtitle">
+            Sou a <strong>Mariana Oliveira</strong>, nutricionista apaixonada por promover saúde por meio de escolhas possíveis no seu dia a dia.
+            Sem dietas mirabolantes: foco em <em>consistência</em>, autonomia e prazer em comer bem.
+          </p>
+          <ul>
+            <li><span class="check">✓</span> Planos alimentares 100% personalizados ao seu contexto</li>
+            <li><span class="check">✓</span> Acompanhamento contínuo com metas semanais</li>
+            <li><span class="check">✓</span> Educação alimentar para longo prazo</li>
+            <li><span class="check">✓</span> Teleconsulta segura e prática</li>
+          </ul>
+          <div style="margin-top:16px;">
+            <a href="#contato" class="btn">Quero começar</a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ABORDAGEM (4 pilares) -->
+  <section class="section pillars" id="abordagem">
+    <div class="container">
+      <h2 class="title reveal">Minha abordagem em 4 pilares</h2>
+      <p class="subtitle reveal" style="transition-delay:.08s">Clareza, consistência e leveza para gerar hábitos que ficam.</p>
+      <div class="grid">
+        <div class="card item reveal">
+          <div class="icon">1</div>
+          <h3>Avaliação completa</h3>
+          <p class="bullet">Histórico clínico, rotina, preferências e exames para entender você por inteiro.</p>
+        </div>
+        <div class="card item reveal" style="transition-delay:.06s">
+          <div class="icon">2</div>
+          <h3>Plano realista</h3>
+          <p class="bullet">Estratégias que cabem no seu tempo e no seu orçamento, sem extremismos.</p>
+        </div>
+        <div class="card item reveal" style="transition-delay:.12s">
+          <div class="icon">3</div>
+          <h3>Ferramentas práticas</h3>
+          <p class="bullet">Listas de compras, marmitinhas, prato ideal e educação alimentar.</p>
+        </div>
+        <div class="card item reveal" style="transition-delay:.18s">
+          <div class="icon">4</div>
+          <h3>Suporte próximo</h3>
+          <p class="bullet">Ajustes e metas semanais para manter o progresso de forma tranquila.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- SERVIÇOS -->
+  <section class="section services" id="servicos">
+    <div class="container">
+      <h2 class="title reveal">Serviços</h2>
+      <div class="grid">
+        <div class="card item reveal">
+          <span class="pill">Consulta inicial</span>
+          <h3>Avaliação + Plano</h3>
+          <p class="bullet">Consulta completa e entrega de plano alimentar personalizado com guia de substituições.</p>
+          <p class="bullet">Duração média: 60–75 min.</p>
+          <a href="#contato" class="btn" style="margin-top:10px;">Reservar</a>
+        </div>
+        <div class="card item reveal" style="transition-delay:.06s">
+          <span class="pill">Acompanhamento</span>
+          <h3>Mensal (4 semanas)</h3>
+          <p class="bullet">Revisões semanais, metas, ajustes de cardápio e suporte por mensagem.</p>
+          <p class="bullet">Ideal para criar hábitos e manter constância.</p>
+          <a href="#contato" class="btn" style="margin-top:10px;">Assinar</a>
+        </div>
+        <div class="card item reveal" style="transition-delay:.12s">
+          <span class="pill">Especialidades</span>
+          <h3>Emagrecimento saudável</h3>
+          <p class="bullet">Foco em educação alimentar, saciedade e rotina real. Nada de extremismos.</p>
+          <a href="#contato" class="btn" style="margin-top:10px;">Saber mais</a>
+        </div>
+        <div class="card item reveal" style="transition-delay:.18s">
+          <span class="pill">Performance</span>
+          <h3>Esportivo</h3>
+          <p class="bullet">Planejamento nutricional para treinos, recuperação e composição corporal.</p>
+          <a href="#contato" class="btn" style="margin-top:10px;">Agendar</a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- DEPOIMENTOS (Carrossel) -->
+  <section class="section testimonials" id="depoimentos">
+    <div class="container">
+      <h2 class="title reveal">Histórias reais</h2>
+      <div class="carousel" id="carousel">
+        <div class="testimonial">
+          <div class="bubble">
+            “Com a Mariana aprendi a comer sem culpa. Em 3 meses, mais energia e exames melhores!”
+            <div class="t-meta">— Ana P.</div>
+          </div>
+        </div>
+        <div class="testimonial">
+          <div class="bubble">
+            “Plano prático, cabe na rotina. Parei de começar e parar dieta. Agora é estilo de vida.”
+            <div class="t-meta">— João S.</div>
+          </div>
+        </div>
+        <div class="testimonial">
+          <div class="bubble">
+            “Apoio de verdade no dia a dia. As metas semanais fizeram toda diferença pra mim.”
+            <div class="t-meta">— Camila R.</div>
+          </div>
+        </div>
+      </div>
+      <div class="t-controls" id="dots">
+        <div class="dotc active"></div>
+        <div class="dotc"></div>
+        <div class="dotc"></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- PLANOS -->
+  <section class="section pricing" id="planos">
+    <div class="container">
+      <h2 class="title reveal">Planos e valores</h2>
+      <div class="grid">
+        <div class="card item reveal">
+          <h3>Consulta Avulsa</h3>
+          <div class="price">R$ 180 <span class="period">/ sessão</span></div>
+          <div class="line"></div>
+          <p class="bullet">Avaliação completa + plano alimentar</p>
+          <p class="bullet">Guia de substituições</p>
+          <a href="https://wa.me/5594999999999" target="_blank" class="btn" style="margin-top:10px;">Agendar</a>
+        </div>
+        <div class="card item reveal" style="transition-delay:.06s">
+          <span class="pill">Mais escolhido</span>
+          <h3>Acompanhamento Mensal</h3>
+          <div class="price">R$ 320 <span class="period">/ mês</span></div>
+          <div class="line"></div>
+          <p class="bullet">Revisões semanais (online)</p>
+          <p class="bullet">Ajustes de cardápio + suporte</p>
+          <a href="https://wa.me/5594999999999" target="_blank" class="btn" style="margin-top:10px;">Começar</a>
+        </div>
+        <div class="card item reveal" style="transition-delay:.12s">
+          <h3>Performance</h3>
+          <div class="price">R$ 420 <span class="period">/ mês</span></div>
+          <div class="line"></div>
+          <p class="bullet">Foco em treino e recuperação</p>
+          <p class="bullet">Ajustes estratégicos semanais</p>
+          <a href="https://wa.me/5594999999999" target="_blank" class="btn" style="margin-top:10px;">Falar no WhatsApp</a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- FAQ -->
+  <section class="section faq" id="faq">
+    <div class="container">
+      <h2 class="title reveal">Perguntas frequentes</h2>
+      <div class="qa reveal">
+        <button type="button">Preciso cortar carboidratos?</button>
+        <div class="ans"><p>Não. O foco é ajustar quantidades e escolhas, mantendo saciedade e prazer. Nada de extremos.</p></div>
+      </div>
+      <div class="qa reveal" style="transition-delay:.05s">
+        <button type="button">As consultas são online também?</button>
+        <div class="ans"><p>Sim! Atendo por videochamada com o mesmo cuidado do presencial.</p></div>
+      </div>
+      <div class="qa reveal" style="transition-delay:.1s">
+        <button type="button">Em quanto tempo vejo resultados?</button>
+        <div class="ans"><p>Varia por pessoa. Em geral, nas primeiras semanas você já sente mais energia e organização.</p></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- BLOG -->
+  <section class="section blog" id="blog">
+    <div class="container">
+      <h2 class="title reveal">Conteúdos</h2>
+      <div class="grid">
+        <article class="post reveal">
+          <div class="thumb">
+            <img src="https://images.unsplash.com/photo-1506806732259-39c2d0268443?q=80&w=1200&auto=format&fit=crop" alt="Prato equilibrado">
+          </div>
+          <h3>Prato ideal: como montar no dia a dia</h3>
+          <p class="subtitle">Guia simples para montar refeições saciantes e equilibradas.</p>
+        </article>
+        <article class="post reveal" style="transition-delay:.06s">
+          <div class="thumb">
+            <img src="https://images.unsplash.com/photo-1484980972926-edee96e0960d?q=80&w=1200&auto=format&fit=crop" alt="Lista de compras saudável">
+          </div>
+          <h3>Lista de compras inteligente</h3>
+          <p class="subtitle">Economize tempo e organize sua semana com escolhas estratégicas.</p>
+        </article>
+        <article class="post reveal" style="transition-delay:.12s">
+          <div class="thumb">
+            <img src="https://images.unsplash.com/photo-1543353071-087092ec393a?q=80&w=1200&auto=format&fit=crop" alt="Lanche prático">
+          </div>
+          <h3>Lanchenhos práticos</h3>
+          <p class="subtitle">Ideias rápidas para manter a energia entre as refeições.</p>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <!-- CONTATO -->
+  <section class="section contact" id="contato">
+    <div class="container">
+      <h2 class="title reveal">Vamos conversar?</h2>
+      <div class="wrapper">
+        <div class="card reveal">
+          <h3>Fale comigo</h3>
+          <p class="subtitle">📍 Av. Principal, 123 — Tucuruí/PA</p>
+          <p class="subtitle">📧 contato@marianaoliveira.com</p>
+          <p class="subtitle">📱 <a href="https://wa.me/5594999999999" target="_blank">WhatsApp (94) 99999-9999</a></p>
+          <a href="https://wa.me/5594999999999" class="btn" target="_blank" style="margin-top:10px;">Agendar pelo Whats</a>
+        </div>
+        <div class="card reveal" style="transition-delay:.06s">
+          <h3>Envie uma mensagem</h3>
+          <form class="form" id="form">
+            <input type="text" name="nome" placeholder="Seu nome completo" required />
+            <input type="email" name="email" placeholder="Seu e-mail" required />
+            <textarea name="mensagem" rows="5" placeholder="Escreva sua mensagem..." required></textarea>
+            <button class="btn" type="submit">Enviar</button>
+          </form>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <footer>
+    <div class="container" style="display:flex; align-items:center; justify-content:space-between; gap:14px; flex-wrap:wrap;">
+      <div>© 2025 Mariana Oliveira — CRN 0000 • Todos os direitos reservados</div>
+      <div>Instagram • Facebook • YouTube</div>
+    </div>
+  </footer>
+
+  <!-- Voltar ao topo -->
+  <button class="top-btn" id="topBtn" aria-label="Voltar ao topo">↑ Topo</button>
+
+  <!-- Toast -->
+  <div class="toast" id="toast">Mensagem enviada! Em breve entro em contato. 💚</div>
+
+  <script>
+    // Smooth scroll (sem mexer com "responsivo")
+    document.querySelectorAll('a[href^="#"]').forEach(a=>{
+      a.addEventListener('click', e=>{
+        const id = a.getAttribute('href');
+        if(id.length>1){
+          e.preventDefault();
+          const el = document.querySelector(id);
+          if(el) el.scrollIntoView({behavior:'smooth', block:'start'});
+        }
+      });
+    });
+
+    // Ativar link do menu conforme seção visível
+    const sections = document.querySelectorAll('section, header.hero');
+    const navLinks = document.querySelectorAll('.nav a');
+    const obs = new IntersectionObserver((entries)=>{
+      entries.forEach(entry=>{
+        if(entry.isIntersecting){
+          const id = '#'+(entry.target.id || 'inicio');
+          navLinks.forEach(l=>l.classList.toggle('active', l.getAttribute('href')===id));
+        }
+      });
+    }, { threshold: 0.5 });
+    sections.forEach(s=>obs.observe(s));
+
+    // Reveal ao rolar
+    const reveals = document.querySelectorAll('.reveal');
+    const rObs = new IntersectionObserver((entries)=>{
+      entries.forEach(en=>{
+        if(en.isIntersecting){
+          en.target.classList.add('visible');
+          rObs.unobserve(en.target);
+        }
+      });
+    }, { threshold: 0.15 });
+    reveals.forEach(el=>rObs.observe(el));
+
+    // Voltar ao topo
+    const topBtn = document.getElementById('topBtn');
+    window.addEventListener('scroll', ()=>{
+      topBtn.style.display = window.scrollY > 450 ? 'block' : 'none';
+    });
+    topBtn.addEventListener('click', ()=> window.scrollTo({top:0, behavior:'smooth'}));
+
+    // Carrossel Depoimentos
+    const carousel = document.getElementById('carousel');
+    const dots = Array.from(document.querySelectorAll('#dots .dotc'));
+    let slide = 0;
+    function goTo(i){
+      slide = (i + dots.length) % dots.length;
+      carousel.style.transform = 'translateX(' + (-100 * slide) + '%)';
+      dots.forEach((d,idx)=> d.classList.toggle('active', idx===slide));
+    }
+    dots.forEach((d,idx)=> d.addEventListener('click', ()=>goTo(idx)));
+    setInterval(()=> goTo(slide+1), 5000);
+
+    // FAQ
+    document.querySelectorAll('.faq .qa button').forEach(btn=>{
+      btn.addEventListener('click', ()=>{
+        const qa = btn.parentElement;
+        qa.classList.toggle('open');
+      });
+    });
+
+    // Formulário com "sucesso" fake
+    const form = document.getElementById('form');
+    const toast = document.getElementById('toast');
+    form?.addEventListener('submit', (e)=>{
+      e.preventDefault();
+      // Validação básica
+      const data = new FormData(form);
+      if(!data.get('nome') || !data.get('email') || !data.get('mensagem')) return;
+      form.reset();
+      toast.classList.add('show');
+      setTimeout(()=> toast.classList.remove('show'), 2600);
+    });
+  </script>
+</body>
+</html>
